@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout scm stage testing') {
             steps {
-
                 echo 'testing'
                 checkout scm
             }
@@ -17,7 +16,8 @@ pipeline {
                 }
             }
         }
-         stage('Terraform Plan') {
+        
+        stage('Terraform Plan') {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
                     sh 'terraform plan'
@@ -28,11 +28,24 @@ pipeline {
         stage('Terraform Action') {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
-                    echo "Terraform action is --> ${action}"
-                    sh "terraform ${action} --auto-approve"
+                    // Prompt user for Terraform action
+                    script {
+                        def userInput = input(
+                            id: 'UserInput',
+                            message: 'Choose Terraform action',
+                            parameters: [
+                                choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose Terraform action to apply or destroy infrastructure')
+                            ]
+                        )
+                        // Retrieve chosen action from user input
+                        def action = userInput.ACTION
+                        echo "Terraform action is --> ${action}"
+                        
+                        // Execute Terraform command based on chosen action
+                        sh "terraform ${action} --auto-approve"
+                    }
                 }
             }
         }
-       
     }
 }

@@ -21,7 +21,7 @@ pipeline {
                 script {
                     // Create ECR repository
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
-                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region ${env.AWS_DEFAULT_REGION}"
+                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region us-east-1
                     }
                 }
             }
@@ -29,7 +29,7 @@ pipeline {
         
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/pkedia009/eks_test.git']]])     
+                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/pkedia009/test_new.git']]])     
             }
         }
         

@@ -1,3 +1,5 @@
+/*
+
 # Resource: AWS IAM User - Basic User (No AWSConsole Access)
 resource "aws_iam_user" "basic_user" {
   name = "${local.name}-eksadmin2"
@@ -29,3 +31,6 @@ resource "aws_iam_user_policy" "basic_user_eks_policy" {
     ]
   })
 }
+
+
+*/

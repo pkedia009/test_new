@@ -33,12 +33,6 @@ pipeline {
             }
         }
         
-        stage('Terraform Destroy') {
-            steps {
-                dir('01-ekscluster-terraform-manifests') {
-                    sh 'terraform destroy --auto-approve'
-                }
-            }
-        }
+       
     }
 }

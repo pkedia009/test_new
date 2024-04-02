@@ -1,12 +1,10 @@
-
-
 pipeline {
     agent any
     
     environment {
         // Define AWS credentials and region
-   //"${env.AWS_ACCOUNT_ID}"
-  // "${env.AWS_DEFAULT_REGION}"
+        // "${env.AWS_ACCOUNT_ID}"
+        // "${env.AWS_DEFAULT_REGION}"
        
         // Define the path to your Dockerfile
         DOCKERFILE_PATH = '/var/lib/jenkins/workspace/eks'
@@ -21,7 +19,7 @@ pipeline {
                 script {
                     // Create ECR repository
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
-                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region us-east-1
+                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region us-east-1"
                     }
                 }
             }

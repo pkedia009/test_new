@@ -14,21 +14,16 @@ pipeline {
     }
  
     stages {
-       stage('Create ECR Repository') {
+        stage('Create ECR Repository') {
             steps {
                 script {
-                    // Check if the ECR repository already exists
-                    def repositoryExists = sh(returnStdout: true, script: "aws ecr describe-repositories --repository-names ${IMAGE_REPO_NAME} --region us-east-1 || true").trim()
-                    if (repositoryExists.contains("RepositoryName")) {
-                        echo "ECR repository ${IMAGE_REPO_NAME} already exists"
-                    } else {
-                        // Create ECR repository
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
-                            sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region us-east-1"
-                        }
+                    // Create ECR repository
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
+                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region us-east-1"
                     }
                 }
             }
+        }
         
         stage('Cloning Git') {
             steps {

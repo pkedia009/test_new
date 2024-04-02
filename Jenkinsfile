@@ -4,27 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-            checkout scm
+                checkout scm
             }
         }
         
-        stage ("terraform init") {
+        stage('Terraform Init') {
             steps {
-                sh ('terraform init -reconfigure') 
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform init -reconfigure'
+                }
             }
         }
-        stage ("terraform plan") {
+        
+        stage('Terraform Plan') {
             steps {
-                sh ('terraform plan') 
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform plan'
+                }
             }
         }
-                
-        stage ("terraform Action") {
+        
+        stage('Terraform Action') {
             steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve') 
-           }
+                dir('01-ekscluster-terraform-manifests') {
+                    echo "Terraform action is --> ${action}"
+                    sh "terraform ${action} --auto-approve"
+                }
+            }
         }
     }
 }
-

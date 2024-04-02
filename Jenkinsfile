@@ -15,7 +15,22 @@ pipeline {
                 }
             }
         }
+         stage('Terraform Plan') {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform plan'
+                }
+            }
+        }
         
+        stage('Terraform Action') {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    echo "Terraform action is --> ${action}"
+                    sh "terraform ${action} --auto-approve"
+                }
+            }
+        }
        
     }
 }

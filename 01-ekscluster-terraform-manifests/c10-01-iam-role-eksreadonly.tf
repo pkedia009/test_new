@@ -51,4 +51,4 @@ resource "aws_iam_role" "eks_readonly_role" {
 }
 
 
-data "aws_caller_identity" "current" {}
+#data "aws_caller_identity" "current" {}

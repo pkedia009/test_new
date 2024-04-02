@@ -1,3 +1,5 @@
+/*
+
 # Resource: AWS IAM Role - EKS Read-Only User
 resource "aws_iam_role" "eks_readonly_role" {
   name = "${local.name}-eks-readonly-role"
@@ -49,6 +51,6 @@ resource "aws_iam_role" "eks_readonly_role" {
     tag-key = "${local.name}-eks-readonly-role"
   }
 }
-
+*/
 
 #data "aws_caller_identity" "current" {}

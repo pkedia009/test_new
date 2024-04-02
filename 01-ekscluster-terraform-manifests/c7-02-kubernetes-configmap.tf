@@ -21,16 +21,12 @@ locals {
   ]
   
   configmap_users = [
-    {
-      userarn  = aws_iam_user.basic_user.arn
-      username = aws_iam_user.basic_user.name
-      groups   = ["system:masters"]
-    },
+   
     {
       userarn  = aws_iam_user.admin_user.arn
       username = aws_iam_user.admin_user.name
       groups   = ["system:masters"]
-    },    
+    } 
   ]    
 }
 

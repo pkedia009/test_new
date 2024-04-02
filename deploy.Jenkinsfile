@@ -5,14 +5,14 @@ pipeline {
     
     environment {
         // Define AWS credentials and region
-       AWS_ACCOUNT_ID = "${env.AWS_ACCOUNT_ID}"
-    AWS_DEFAULT_REGION = "${env.AWS_DEFAULT_REGION}"
+   //"${env.AWS_ACCOUNT_ID}"
+  // "${env.AWS_DEFAULT_REGION}"
        
         // Define the path to your Dockerfile
         DOCKERFILE_PATH = '/var/lib/jenkins/workspace/eks'
         IMAGE_REPO_NAME = "test_eks"
         IMAGE_TAG = "v1"
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        REPOSITORY_URI = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
  
     stages {
@@ -21,7 +21,7 @@ pipeline {
                 script {
                     // Create ECR repository
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
-                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region ${AWS_DEFAULT_REGION}"
+                        sh "aws ecr create-repository --repository-name ${IMAGE_REPO_NAME} --region ${env.AWS_DEFAULT_REGION}"
                     }
                 }
             }
@@ -39,7 +39,7 @@ pipeline {
                     // Get the AWS credentials from Jenkins credentials
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
                         // Use the AWS CLI to retrieve an authentication token to use for Docker login
-                        def ecrLoginCmd = "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}"
+                        def ecrLoginCmd = "aws ecr get-login-password --region ${env.AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}"
                         sh ecrLoginCmd
                     }
                 }

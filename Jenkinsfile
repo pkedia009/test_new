@@ -25,25 +25,18 @@ pipeline {
             }
         }
         
-        stage('Terraform Action') {
+        stage('Terraform Apply') {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
-                    // Prompt user for Terraform action
-                    script {
-                        def userInput = input(
-                            id: 'UserInput',
-                            message: 'Choose Terraform action',
-                            parameters: [
-                                choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Choose Terraform action to apply or destroy infrastructure')
-                            ]
-                        )
-                        // Retrieve chosen action from user input
-                        def action = userInput.ACTION
-                        echo "Terraform action is --> ${action}"
-                        
-                        // Execute Terraform command based on chosen action
-                        sh "terraform ${action} --auto-approve"
-                    }
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+        
+        stage('Terraform Destroy') {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform destroy --auto-approve'
                 }
             }
         }

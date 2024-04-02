@@ -1,3 +1,4 @@
+/*
 # Get AWS Account ID
 data "aws_caller_identity" "current" {}
 
@@ -46,3 +47,5 @@ resource "kubernetes_config_map_v1" "aws_auth" {
     mapUsers = yamlencode(local.configmap_users)            
   }  
 }
+
+*/

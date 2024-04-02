@@ -8,7 +8,7 @@ pipeline {
        
         // Define the path to your Dockerfile
         DOCKERFILE_PATH = '/var/lib/jenkins/workspace/eks'
-        IMAGE_REPO_NAME = "test_eks_new"
+        IMAGE_REPO_NAME = "test_eks_new_new"
         IMAGE_TAG = "v1"
         REPOSITORY_URI = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }

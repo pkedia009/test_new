@@ -1,3 +1,6 @@
+
+
+/*
 # Resource: AWS IAM Group 
 resource "aws_iam_group" "eksreadonly_iam_group" {
   name = "${local.name}-eksreadonly"
@@ -43,3 +46,6 @@ resource "aws_iam_group_membership" "eksreadonly" {
   ]
   group = aws_iam_group.eksreadonly_iam_group.name
 }
+
+
+*/

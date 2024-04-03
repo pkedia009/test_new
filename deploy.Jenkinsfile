@@ -67,7 +67,7 @@ pipeline {
             }
         }
         
- stage('Helm Deploy') {
+ stage('Helm Deploy and testing') {
     steps {
         script {
             // Check if the chart is already installed

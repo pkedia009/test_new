@@ -1,6 +1,6 @@
 pipeline {
     agent any
-   # -or-create 
+
     parameters {
         choice(name: 'TARGET_ENV', choices: ['qa', 'dev', 'prod'], description: 'Environment')
     }

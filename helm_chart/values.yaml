@@ -9,10 +9,11 @@ createNamespace: true
 namespaceName: data-pg
 
 image:
-  repository: 211223789150.dkr.ecr.us-east-1.amazonaws.com/my-docker-repo
+  repository: "${REPOSITORY_URI}"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+
 
 imagePullSecrets: []
 nameOverride: ""

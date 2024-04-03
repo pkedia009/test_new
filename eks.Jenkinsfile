@@ -47,7 +47,7 @@ pipeline {
             
             steps {
                 echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
-                build job: 'ReleaseJob',
+                build job: 'releaseJob',
                       parameters: [
                           string(name: 'FROM_BUILD', value: "${BUILD_NUMBER}")
                       ]

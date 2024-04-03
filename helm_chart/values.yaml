@@ -16,7 +16,8 @@ image:
   tag: ""
 
 
-imagePullSecrets: []
+imagePullSecrets: 
+ - name: ecr-secret
 nameOverride: ""
 fullnameOverride: ""
 

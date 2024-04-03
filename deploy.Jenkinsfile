@@ -67,13 +67,24 @@ pipeline {
             }
         }
         
-        stage('Helm Deploy') {
-            steps {
-                script {
-                    // Deploy using Helm
-                    sh "helm upgrade first --install mychart --namespace helm-deployment --set image.tag=${IMAGE_TAG}"
-                }
+      stage('Helm Deploy') {
+    steps {
+        script {
+            // Check if the chart is already installed
+            def helmListOutput = sh(script: "helm list -A", returnStdout: true).trim()
+            def isChartInstalled = helmListOutput.contains('my-helm-chart')
+
+            if (isChartInstalled) {
+                // If chart is already installed, use helm upgrade
+                sh "helm upgrade first my-helm-chart --namespace helm-deployment --set image.tag=${IMAGE_TAG}"
+            } 
+            else {
+                // If chart is not installed, use helm install
+                sh "helm install first my-helm-chart --namespace helm-deployment --set image.tag=${IMAGE_TAG}"
             }
         }
+    }
+}
+
     }
 }

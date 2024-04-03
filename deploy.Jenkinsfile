@@ -76,11 +76,11 @@ pipeline {
 
             if (isChartInstalled) {
                 // If chart is already installed, use helm upgrade
-                sh "helm upgrade first my-helm-chart --namespace helm-deployment --set image.tag=${IMAGE_TAG}"
+                sh "helm upgrade first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
             } 
             else {
                 // If chart is not installed, use helm install
-                sh "helm install first my-helm-chart --namespace helm-deployment --set image.tag=${IMAGE_TAG}"
+                sh "helm install first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
             }
         }
     }

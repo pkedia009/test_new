@@ -11,7 +11,7 @@ pipeline {
                 dir('01-ekscluster-terraform-manifests') {
                     script {
                         def workspaceName = params.TARGET_ENV
-                        sh "terraform workspace select ${workspaceName}"
+                        sh "terraform workspace select ${workspaceName} -or-create"
                         sh 'terraform init'
                     }
                 }

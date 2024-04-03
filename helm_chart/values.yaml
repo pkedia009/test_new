@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+namespace: data-pg  # Updated namespace to data-pg
+
 replicaCount: 5
 
 image:

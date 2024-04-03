@@ -4,8 +4,8 @@
 
 replicaCount: 1
 
-createNamespace: true
-namespaceName: "data-pg"
+#createNamespace: true
+#namespaceName: "data-pg"
 
 image:
   repository: nginx

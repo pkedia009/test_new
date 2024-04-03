@@ -84,8 +84,8 @@ tolerations: []
 
 affinity: {}
 
-nodeSelector:
-  gpu: "true"
+#nodeSelector:
+#  gpu: "true"
 
 mongodb:
   replicaCount: 1

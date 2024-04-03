@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: {{ include "my-helm-chart.fullname" . }}
+  namespace: {{ include "my-helm-chart.namespace" . }}  # Include the namespace here
   labels:
     {{- include "my-helm-chart.labels" . | nindent 4 }}
 spec:

@@ -6,7 +6,10 @@ replicaCount: 1
 
 #createNamespace: true
 #namespaceName: "data-pg"
-
+namespace:
+  create: true          # Specifies whether a namespace should be created
+  name: "data-pg" 
+  
 image:
   repository: nginx
   pullPolicy: IfNotPresent

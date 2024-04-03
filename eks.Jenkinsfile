@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+   # -or-create 
     parameters {
         choice(name: 'TARGET_ENV', choices: ['qa', 'dev', 'prod'], description: 'Environment')
     }
@@ -11,12 +11,13 @@ pipeline {
                 dir('01-ekscluster-terraform-manifests') {
                     script {
                         def workspaceName = params.TARGET_ENV
-                        sh "terraform workspace select ${workspaceName} -or-create"
+                        sh "terraform workspace select ${workspaceName} || terraform workspace new ${workspaceName}"
                         sh 'terraform init'
                     }
                 }
             }
         }
+        
         
         stage("VALIDATE_TERRAFORM") {
             steps {

@@ -1,0 +1,1 @@
+sudo curl -L https://git.io/get_helm.sh | sudo bash -s -- --version v3.8.2

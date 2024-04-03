@@ -6,9 +6,9 @@ metadata:
   labels:
     {{- include "mytestchart.labels" . | nindent 4 }}
 spec:
-{{- if not .Values.autoscaling.enabled }}
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-{{- end }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "mytestchart.selectorLabels" . | nindent 6 }}

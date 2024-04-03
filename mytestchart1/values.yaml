@@ -11,7 +11,7 @@ namespace:
   name: "data-pg" 
   
 image:
-  repository: nginx
+  repository: 533267099239.dkr.ecr.us-east-1.amazonaws.com/test_eks_new_new_new_new
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

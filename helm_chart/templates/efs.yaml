@@ -1,5 +1,5 @@
 # templates/efs.yaml
-
+/*
 {{- if .Values.efs.enabled -}}
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -30,3 +30,5 @@ spec:
     server: {{ .Values.efs.server }}
     path: {{ .Values.efs.path }}
 {{- end }}
+
+*/

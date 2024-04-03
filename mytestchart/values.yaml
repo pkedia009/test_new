@@ -77,8 +77,28 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+
 
 tolerations: []
 
 affinity: {}
+
+nodeSelector:
+  gpu: "true" 
+
+mongodb:
+  replicaCount: 1
+  
+
+  image:
+    repository: mongo
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "256Mi"

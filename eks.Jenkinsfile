@@ -44,13 +44,7 @@ pipeline {
         }
         
         stage("TRIGGER_RELEASE_JOB") {
-            when {
-                beforeAgent true
-                expression {
-                    def workspaceName = params.TARGET_ENV
-                    return sh(script: "terraform workspace select ${workspaceName}", returnStatus: true) == 0
-                }
-            }
+            
             steps {
                 echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
                 build job: 'ReleaseJob',

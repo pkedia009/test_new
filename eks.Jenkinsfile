@@ -3,8 +3,22 @@ pipeline {
 
     parameters {
         choice(name: 'TARGET_ENV', choices: ['qa', 'dev', 'prod'], description: 'Environment')
+
+
     }
-    
+
+ stages {
+        stage("CREATE_EKS_CLUSTER_testing ") {
+            steps {
+               
+                    script {
+                        echo 'cluster init done'
+                    }
+                
+            }
+        }
+        
+    /*
     stages {
         stage("CREATE_EKS_CLUSTER") {
             steps {
@@ -42,7 +56,7 @@ pipeline {
                 }
             }
         }
-        
+        */
         stage("TRIGGER_RELEASE_JOB") {
             
             steps {

@@ -3,23 +3,17 @@ pipeline {
 
     parameters {
         choice(name: 'TARGET_ENV', choices: ['qa', 'dev', 'prod'], description: 'Environment')
-
-
     }
 
- stages {
-        stage("CREATE_EKS_CLUSTER_testing ") {
+    stages {
+        stage("CREATE_EKS_CLUSTER_testing") {
             steps {
-               
-                    script {
-                        echo 'cluster init done'
-                    }
-                
+                script {
+                    echo 'Cluster initialization done'
+                }
             }
         }
-        
 
-    stages {
         stage("CREATE_EKS_CLUSTER") {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
@@ -31,8 +25,7 @@ pipeline {
                 }
             }
         }
-        
-        
+
         stage("VALIDATE_TERRAFORM") {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
@@ -40,7 +33,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage("TERRAFORM_PLAN") {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
@@ -48,7 +41,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage("APPLY_TERRAFORM") {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
@@ -56,9 +49,8 @@ pipeline {
                 }
             }
         }
-    
+
         stage("TRIGGER_RELEASE_JOB") {
-            
             steps {
                 echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
                 build job: 'releaseJob',

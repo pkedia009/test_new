@@ -1,17 +1,17 @@
-{{- include "my-helm-chart.namespace" . | nindent 2 }}
+{{- include "mytestchart.namespace" . | nindent 2 }}
 
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "my-helm-chart.fullname" . }}
-  namespace: {{ include "my-helm-chart.namespace" . }}  # Include the namespace here
+  name: {{ include "mytestchart.fullname" . }}
+  namespace: {{ include "mytestchart.namespace" . }}  # Include the namespace here
   labels:
-    {{- include "my-helm-chart.labels" . | nindent 4 }}
+    {{- include "mytestchart.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "my-helm-chart.selectorLabels" . | nindent 6 }}
-  serviceName: "{{ include "my-helm-chart.fullname" . }}"
+      {{- include "mytestchart.selectorLabels" . | nindent 6 }}
+  serviceName: "{{ include "mytestchart.fullname" . }}"
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
@@ -20,9 +20,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "my-helm-chart.selectorLabels" . | nindent 8 }}
+        {{- include "mytestchart.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "my-helm-chart.serviceAccountName" . }}
+      serviceAccountName: {{ include "mytestchart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

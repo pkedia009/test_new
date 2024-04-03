@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "mytestchart.fullname" . }}
-  #namespace: {{ include "mytestchart.namespace" . }}  # Include the namespace here
+  name: {{ include "mytestchart1.fullname" . }}
+  #namespace: {{ include "mytestchart1111.namespace" . }}  # Include the namespace here
   labels:
-    {{- include "mytestchart.labels" . | nindent 4 }}
+    {{- include "mytestchart1.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "mytestchart.selectorLabels" . | nindent 6 }}
-  serviceName: "{{ include "mytestchart.fullname" . }}"
+      {{- include "mytestchart1.selectorLabels" . | nindent 6 }}
+  serviceName: "{{ include "mytestchart1.fullname" . }}"
   replicas: {{ .Values.replicaCount }}
   template:
     metadata:
@@ -18,9 +18,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "mytestchart.selectorLabels" . | nindent 8 }}
+        {{- include "mytestchart1.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "mytestchart.serviceAccountName" . }}
+      serviceAccountName: {{ include "mytestchart1.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

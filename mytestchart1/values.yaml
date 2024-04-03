@@ -91,6 +91,7 @@ affinity: {}
 #  gpu: "true"
 
 mongodb:
+  namespace: "data-pg"
   replicaCount: 1
   image:
     repository: mongo

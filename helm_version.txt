@@ -1,1 +1,4 @@
 sudo curl -L https://git.io/get_helm.sh | sudo bash -s -- --version v3.8.2
+sudo docker image prune 
+
+for Error processing tar file(exit status 1): write /app/01-ekscluster-terraform-manifests/.terraform/providers/registry.terraform.io/hashicorp/aws/5.43.0/linux_amd64/terraform-provider-aws_v5.43.0_x5: no space left on device

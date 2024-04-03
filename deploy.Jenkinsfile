@@ -67,24 +67,25 @@ pipeline {
             }
         }
         
-      stage('Helm Deploy') {
+ stage('Helm Deploy') {
     steps {
         script {
             // Check if the chart is already installed
-            def helmListOutput = sh(script: "helm list -A", returnStdout: true).trim()
+            def helmListOutput = sh(script: "sudo helm list -A", returnStdout: true).trim()
             def isChartInstalled = helmListOutput.contains('my-helm-chart')
 
             if (isChartInstalled) {
                 // If chart is already installed, use helm upgrade
-                sh "helm upgrade first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
+                sh "sudo helm upgrade first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
             } 
             else {
                 // If chart is not installed, use helm install
-                sh "helm install first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
+                sh "sudo helm install first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
             }
         }
     }
 }
+
 
     }
 }

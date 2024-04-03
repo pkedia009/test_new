@@ -1,0 +1,16 @@
+# templates/storageclass.yaml
+
+{{- if .Values.efs.enabled -}}
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+parameters:
+  fileSystemId: {{ .Values.efs.fileSystemId }}
+  directoryPerms: "0777"
+  gidRange: "1000-2000"
+  region: {{ .Values.efs.region }}
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+{{- end }}

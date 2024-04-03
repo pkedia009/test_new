@@ -60,3 +60,12 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name of the namespace to use
+*/}}
+{{- define "mytestchart.namespace" -}}
+{{- if .Values.createNamespace }}
+{{ .Values.namespaceName }}
+{{- end }}
+{{- end }}

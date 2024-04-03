@@ -14,7 +14,7 @@ pipeline {
     }
  
     stages {
-        stage('Create ECR Repository') {
+        stage('Create ECR Repository and testing') {
             steps {
                 script {
                     // Check if the ECR repository already exists

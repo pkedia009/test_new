@@ -18,7 +18,7 @@ pipeline {
             }
         }
         
-    /*
+
     stages {
         stage("CREATE_EKS_CLUSTER") {
             steps {
@@ -56,7 +56,7 @@ pipeline {
                 }
             }
         }
-        */
+    
         stage("TRIGGER_RELEASE_JOB") {
             
             steps {

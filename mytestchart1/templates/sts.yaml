@@ -1,57 +1,26 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "mytestchart1.fullname" . }}
-  labels:
-    {{- include "mytestchart1.labels" . | nindent 4 }}
+  name: {{ include "mytestchart1.fullname" . }}-mongodb
 spec:
+  replicas: {{ .Values.mongodb.replicaCount }}
+  serviceName: {{ include "mytestchart1.fullname" . }}-mongodb
   selector:
     matchLabels:
-      {{- include "mytestchart1.selectorLabels" . | nindent 6 }}
-  serviceName: "{{ include "mytestchart1.fullname" . }}"
-  replicas: {{ .Values.replicaCount }}
+      app: mongodb
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "mytestchart1.selectorLabels" . | nindent 8 }}
+        app: mongodb
     spec:
-      serviceAccountName: {{ include "mytestchart1.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-      - name: {{ .Chart.Name }}
-        securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - name: http
-          containerPort: 8080
-          protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /
-            port: http
-        readinessProbe:
-          httpGet:
-            path: /
-            port: http
-        resources:
-          {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-  
+        - name: mongodb
+          image: "{{ .Values.mongodb.image.repository }}:{{ .Values.mongodb.image.tag }}"
+          imagePullPolicy: {{ .Values.mongodb.image.pullPolicy }}
+          resources:
+            limits:
+              cpu: "{{ .Values.mongodb.resources.limits.cpu }}"
+              memory: "{{ .Values.mongodb.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.mongodb.resources.requests.cpu }}"
+              memory: "{{ .Values.mongodb.resources.requests.memory }}"

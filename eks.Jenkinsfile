@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     
@@ -9,29 +8,37 @@ pipeline {
     stages {
         stage("CREATE_EKS_CLUSTER") {
             steps {
-                script {
-                    def workspaceName = params.TARGET_ENV
-                    sh "terraform workspace select ${workspaceName}"
-                    sh 'terraform init'
+                dir('01-ekscluster-terraform-manifests') {
+                    script {
+                        def workspaceName = params.TARGET_ENV
+                        sh "terraform workspace select ${workspaceName}"
+                        sh 'terraform init'
+                    }
                 }
             }
         }
         
         stage("VALIDATE_TERRAFORM") {
             steps {
-                sh 'terraform validate'
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform validate'
+                }
             }
         }
         
         stage("TERRAFORM_PLAN") {
             steps {
-                sh 'terraform plan'
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform plan'
+                }
             }
         }
         
         stage("APPLY_TERRAFORM") {
             steps {
-                sh 'terraform apply -auto-approve'
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform apply -auto-approve'
+                }
             }
         }
         

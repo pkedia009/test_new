@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "mytestchart1.fullname" . }}
-  #namespace: {{ include "mytestchart.namespace" . }}   # Include the namespace here
+  namespace: {{ include "mytestchart.namespace" . }}   # Include the namespace here
   labels:
     {{- include "mytestchart1.labels" . | nindent 4 }}
 spec:

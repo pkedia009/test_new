@@ -46,6 +46,7 @@ pipeline {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
                     sh 'terraform apply -auto-approve'
+                
                 }
             }
         }

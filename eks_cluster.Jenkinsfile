@@ -41,6 +41,14 @@ pipeline {
             }
         }
       
+        stage("APPLY_TERRAFORM") {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform apply -auto-approve'
+                
+                }
+            }
+        }
 
         stage("TRIGGER_RELEASE_JOB") {
             steps {

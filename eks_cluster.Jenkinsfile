@@ -1,6 +1,7 @@
 pipeline {
     agent any
-
+         def clusterName = sh(script: 'terraform output -json', returnStdout: true).trim()
+                     env.CLUSTER_NAME = clusterName // Assign clusterName to an environment variable
     parameters {
         choice(name: 'TARGET_ENV', choices: ['qa', 'dev', 'prod'], description: 'Environment')
     }
@@ -43,8 +44,7 @@ pipeline {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
                     sh 'terraform apply -auto-approve'
-                    def clusterName = sh(script: 'terraform output -json', returnStdout: true).trim()
-                     env.CLUSTER_NAME = clusterName // Assign clusterName to an environment variable
+           
                 }
             }
         }

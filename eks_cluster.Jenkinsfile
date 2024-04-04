@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -39,14 +38,16 @@ pipeline {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
                     sh 'terraform apply -auto-approve'
-                  // Retrieve cluster name from Terraform output
-                        def clusterName = sh(script: 'terraform output -json', returnStdout: true).trim()
-                        // Pass the cluster name to the next stage
-                        buildReleaseJob(clusterName)
+                    // Retrieve cluster name from Terraform output
+                    def clusterName = sh(script: 'terraform output -json', returnStdout: true).trim()
+                    // Pass the cluster name to the next stage
+                    buildReleaseJob(clusterName)
                 }
             }
         }
+    }
 }
+
 def buildReleaseJob(clusterName) {
     stage("TRIGGER_RELEASE_JOB") {
         steps {
@@ -59,4 +60,3 @@ def buildReleaseJob(clusterName) {
         }
     }
 }
-       

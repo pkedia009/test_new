@@ -7,14 +7,6 @@ pipeline {
     }
 
     stages {
-        stage("CREATE_EKS_CLUSTER_testing") {
-            steps {
-                script {
-                    echo 'Cluster initialization done'
-                }
-            }
-        }
-
         stage("CREATE_EKS_CLUSTER") {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
@@ -54,6 +46,7 @@ pipeline {
                 }
             }
         }
+}
 def buildReleaseJob(clusterName) {
     stage("TRIGGER_RELEASE_JOB") {
         steps {

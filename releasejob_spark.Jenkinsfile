@@ -73,7 +73,7 @@ pipeline {
         stage('Update kubeconfig') {
             steps {
                 script {
-                    sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name your-eks-cluster-name"
+                    sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name clusterName"
                 }
             }
         }

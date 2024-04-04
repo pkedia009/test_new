@@ -1,3 +1,12 @@
+def buildReleaseJob(clusterName) {
+    echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
+    build job: 'releasejob_spark',
+        parameters: [
+            string(name: 'FROM_BUILD', value: "${BUILD_NUMBER}"),
+            string(name: 'CLUSTER_NAME', value: clusterName)
+        ]
+}
+
 pipeline {
     agent any
 
@@ -48,18 +57,6 @@ pipeline {
 
         stage("TRIGGER_RELEASE_JOB") {
             steps {
-                // Define buildReleaseJob function
-                script {
-                    def buildReleaseJob(clusterName) {
-                        echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
-                        build job: 'releasejob_spark',
-                            parameters: [
-                                string(name: 'FROM_BUILD', value: "${BUILD_NUMBER}"),
-                                string(name: 'CLUSTER_NAME', value: clusterName)
-                            ]
-                    }
-                }
-                
                 // Call the buildReleaseJob function
                 buildReleaseJob(clusterName)
             }

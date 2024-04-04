@@ -11,7 +11,7 @@ pipeline {
 
    
  parameters {
-        string(name: 'CLUSTER_NAME', description: 'Name of the EKS cluster')
+        string(name: 'clusterName', description: 'Name of the EKS cluster')
       string(name: 'FROM_BUILD', defaultValue: 'PROD', description: 'Build Source')
     }
     stages {

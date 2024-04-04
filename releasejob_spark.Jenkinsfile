@@ -75,7 +75,7 @@ pipeline {
             steps {
                 script {
 
-                    sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name ${params.clusterName"
+                    sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name ${params."clusterName")
                         
                 }
             }
@@ -96,15 +96,8 @@ pipeline {
                         sh "sudo helm install first mytestchart1 --set image.tag=${IMAGE_TAG}"
                     }
 
-                    // Check if the Spark chart is already installed
-                    def helmListOutput_spark = sh(script: "helm list -A", returnStdout: true).trim()
-                    def isChartInstalled_spark = helmListOutput_spark.contains('my-spark-chart')
-
-                    if (isChartInstalled_spark) {
-                        sh "sudo helm upgrade my-spark-job bitnami/spark --namespace my-namespace --set gpu.enabled=true"
-                    } else {
-                        sh "sudo helm install my-spark-job bitnami/spark --namespace my-namespace --set gpu.enabled=true"
-                    }
+                   
+                   
                 }
             }
         }

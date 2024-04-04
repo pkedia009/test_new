@@ -54,15 +54,16 @@ pipeline {
                 }
             }
         }
-
-        stage("TRIGGER_RELEASE_JOB") {
-            steps {
-                echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
-                build job: 'releaseJob',
-                      parameters: [
-                          string(name: 'FROM_BUILD', value: "${BUILD_NUMBER}")
-                      ]
-            }
+def buildReleaseJob(clusterName) {
+    stage("TRIGGER_RELEASE_JOB") {
+        steps {
+            echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
+            build job: 'releaseJob',
+                parameters: [
+                    string(name: 'FROM_BUILD', value: "${BUILD_NUMBER}"),
+                    string(name: 'CLUSTER_NAME', value: clusterName)
+                ]
         }
     }
 }
+       

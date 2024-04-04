@@ -9,10 +9,11 @@ pipeline {
         REPOSITORY_URI = "${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
 
-    parameters {
-        string(name: 'FROM_BUILD', defaultValue: 'PROD', description: 'Build Source')
+   
+ parameters {
+        string(name: 'CLUSTER_NAME', description: 'Name of the EKS cluster')
+      string(name: 'FROM_BUILD', defaultValue: 'PROD', description: 'Build Source')
     }
-
     stages {
 
         stage('DEPLOY') {
@@ -73,7 +74,9 @@ pipeline {
         stage('Update kubeconfig') {
             steps {
                 script {
-                    sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name clusterName"
+
+                    sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name ${params.CLUSTER_NAME}"
+                        
                 }
             }
         }

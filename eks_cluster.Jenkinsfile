@@ -19,7 +19,7 @@ pipeline {
                     script {
                         def workspaceName = params.TARGET_ENV
                         sh "terraform workspace select ${workspaceName} || terraform workspace new ${workspaceName}"
-                        sh 'terraform init'
+                        sh 'sudo terraform init -reconfigure'
                     }
                 }
             }

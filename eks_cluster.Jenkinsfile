@@ -1,26 +1,23 @@
 pipeline {
     agent any
-  parameters {
+
+    parameters {
         choice(name: 'TARGET_ENV', choices: ['qa', 'dev', 'prod'], description: 'Environment')
     }
-   
-    stages {
-     stage("CREATE_EKS_CLUSTER_testing") {
-            steps {
-                script {
-                    echo 'Cluster initialization done'
-                }
-            }
-        }
 
+    stages {
         stage("CREATE_EKS_CLUSTER") {
             steps {
-                dir('01-ekscluster-terraform-manifests') {
-                    script {
-                        def workspaceName = params.TARGET_ENV
-                        sh "terraform workspace select ${workspaceName} || terraform workspace new ${workspaceName}"
-                        sh 'sudo terraform init -reconfigure'
+                script {
+                    def workspaceName = params.TARGET_ENV
+                    // Check if the workspace exists
+                    def workspaceExists = sh(script: "terraform workspace select ${workspaceName}", returnStatus: true) == 0
+                    if (!workspaceExists) {
+                        // If workspace does not exist, create a new one
+                        sh "terraform workspace new ${workspaceName}"
                     }
+                    // Initialize the Terraform backend with reconfiguration
+                    sh 'terraform init -reconfigure'
                 }
             }
         }
@@ -40,12 +37,11 @@ pipeline {
                 }
             }
         }
-      
+
         stage("APPLY_TERRAFORM") {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
                     sh 'terraform apply -auto-approve'
-                
                 }
             }
         }

@@ -76,7 +76,7 @@ pipeline {
                 script {
 
                  
-                    echo '${params.clusterName}'
+                    echo "Cluster name is: $CLUSTER_NAME"
 
                         
                 }

@@ -97,7 +97,7 @@ pipeline {
                 // If chart is not installed, use helm install
                 //sh "sudo helm repo add ${IMAGE_REPO_NAME} ${REPOSITORY_URI}"
                // sh "sudo helm install first my-helm-chart --namespace data-pg --set image.tag=${IMAGE_TAG}"
-                 sh "sudo helm install first mytestchart1 --set image.tag=${IMAGE_TAG}"
+                 sh "sudo helm install first mytestchart1 --namespace data-pg --set image.tag=${IMAGE_TAG}" 
                   //  sh "sudo helm install first my-helm-chart --set image.tag=${IMAGE_TAG}"
                     
             }

@@ -55,8 +55,9 @@ pipeline {
                     build job: 'releasejob_spark',
                         parameters: [
                             string(name: 'FROM_BUILD', value: "${BUILD_NUMBER}"),
-                            string(name: 'CLUSTER_NAME', value: clusterName)
+                         
                         ]
+                    env.CLUSTER_NAME = clusterName // Assign clusterName to an environment variable
                 }
             }
         }

@@ -43,15 +43,17 @@ pipeline {
             steps {
                 dir('01-ekscluster-terraform-manifests') {
                     sh 'terraform apply -auto-approve'
+                    def clusterName = sh(script: 'terraform output -json', returnStdout: true).trim()
+                     env.CLUSTER_NAME = clusterName // Assign clusterName to an environment variable
                 }
             }
         }
 
+
         stage("TRIGGER_RELEASE_JOB") {
             steps {
                 script {
-                    def clusterName = sh(script: 'terraform output -json', returnStdout: true).trim()
-                     env.CLUSTER_NAME = clusterName // Assign clusterName to an environment variable
+                    
                     echo "EKS cluster created successfully for ${params.TARGET_ENV} environment. Triggering release job..."
                     build job: 'releasejob_spark',
                         parameters: [

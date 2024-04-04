@@ -95,20 +95,20 @@ output "node_group_private_version" {
 
 output "node_group_private_id" {
   description = "Node Group 1 ID"
-  value       = aws_eks_node_group.eks_ng_private.id
+  value       = aws_eks_node_group.eks_ng_gpu.id
 }
 
 output "node_group_private_arn" {
   description = "Private Node Group ARN"
-  value       = aws_eks_node_group.eks_ng_private.arn
+  value       = aws_eks_node_group.eks_ng_gpu.arn
 }
 
 output "node_group_private_status" {
   description = "Private Node Group status"
-  value       = aws_eks_node_group.eks_ng_private.status 
+  value       = aws_eks_node_group.eks_ng_gpu.status 
 }
 
 output "node_group_private_version" {
   description = "Private Node Group Kubernetes Version"
-  value       = aws_eks_node_group.eks_ng_private.version
+  value       = aws_eks_node_group.eks_ng_gpu.version
 }

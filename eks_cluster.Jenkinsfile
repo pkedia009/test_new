@@ -5,7 +5,41 @@ pipeline {
     }
    
     stages {
-  
+     stage("CREATE_EKS_CLUSTER_testing") {
+            steps {
+                script {
+                    echo 'Cluster initialization done'
+                }
+            }
+        }
+
+        stage("CREATE_EKS_CLUSTER") {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    script {
+                        def workspaceName = params.TARGET_ENV
+                        sh "terraform workspace select ${workspaceName} || terraform workspace new ${workspaceName}"
+                        sh 'terraform init'
+                    }
+                }
+            }
+        }
+
+        stage("VALIDATE_TERRAFORM") {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform validate'
+                }
+            }
+        }
+
+        stage("TERRAFORM_PLAN") {
+            steps {
+                dir('01-ekscluster-terraform-manifests') {
+                    sh 'terraform plan'
+                }
+            }
+        }
       
 
         stage("TRIGGER_RELEASE_JOB") {

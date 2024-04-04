@@ -1,3 +1,5 @@
+/*
+
 # Create AWS EKS Node Group - GPU
 resource "aws_eks_node_group" "eks_ng_gpu" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
@@ -38,3 +40,5 @@ resource "aws_eks_node_group" "eks_ng_gpu" {
     gpu  = "true"
   }
 }
+
+*/

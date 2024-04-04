@@ -75,7 +75,8 @@ pipeline {
             steps {
                 script {
 
-                   sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name ${params.clusterName}"
+                   //sh "aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name ${params.clusterName}"
+                    echo '${params.clusterName}'
 
                         
                 }

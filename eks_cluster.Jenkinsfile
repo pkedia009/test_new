@@ -15,6 +15,7 @@ pipeline {
                     if (!workspaceExists) {
                         // If workspace does not exist, create a new one
                         sh "terraform workspace new ${workspaceName}"
+                        sh "terraform workspace select ${workspaceName}"
                     }
                     // Initialize the Terraform backend with reconfiguration
                     sh 'terraform init -reconfigure'

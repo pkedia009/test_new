@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Pool Status</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>zsor-agentpool</h1>
+        <div class="actions">
+            <button id="updateAll">Update all agents</button>
+            <button id="newAgent">New agent</button>
+        </div>
+        <nav>
+            <ul>
+                <li class="active">Agents</li>
+                <li>Details</li>
+                <li>Security</li>
+                <li>Approvals and checks</li>
+                <li>Analytics</li>
+            </ul>
+        </nav>
+        <table id="agentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Last run</th>
+                    <th>Current status</th>
+                    <th>Agent version</th>
+                    <th>Enabled</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Agent rows will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
